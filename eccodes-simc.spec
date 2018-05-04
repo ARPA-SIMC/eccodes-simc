@@ -8,10 +8,9 @@ License:        Apache License, Version 2.0
 URL:            https://arpae.it/sim
 BuildArch:      noarch
 Source0:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/utm_grib2.tmpl
-#ource0:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc.patch
-#ource1:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc-profile.sh
+#ource1:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc.patch
 
-BuildRequires:  eccodes
+BuildRequires:  eccodes, util-linux
 Requires:       eccodes
 
 %description
@@ -21,6 +20,9 @@ Custom grib definitions and samples used at ARPAE-SIMC:
 - timerange 13 (for nudging analysis)
 - UTM grib2
 
+%build
+
+
 %install
 [ "%{buildroot}" != / ] && rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sysconfdir}/profile.d/
@@ -28,6 +30,10 @@ echo "export ECCODES_DEFINITION_PATH=\"%{_datarootdir}/eccodes-simc/definitions/
 echo "export  ECCODES_SAMPLES_PATH=\"%{_datarootdir}/eccodes-simc/samples/:%{_datarootdir}/eccodes/samples/\"" >> %{buildroot}/%{_sysconfdir}/profile.d/%{name}.sh
 mkdir -p %{buildroot}%{_datadir}/%{name}/sample/
 %{__install} %{SOURCE0} %{buildroot}%{_datadir}/%{name}/sample
+mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/
+cp -a %{_datadir}/eccodes/definitions/grib1/local.98.* %{buildroot}%{_datadir}/%{name}/definitions/
+rename local.98 local.200 %{buildroot}%{_datadir}/%{name}/definitions/local.98.*
+
 
 %files
 %{_sysconfdir}/profile.d/%{name}.sh
