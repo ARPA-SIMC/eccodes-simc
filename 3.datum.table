@@ -1,0 +1,7 @@
+# CODE TABLE 3.0, Source of Grid Definition
+0 0 Specified in following shape of the earth description
+# If not 0, the shape of the earth section is not included in the GRIB
+1 1 WGS84
+# 2-191 Reserved
+# 192-254 Reserved for local use
+255 255 A datum does not apply to this product

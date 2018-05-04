@@ -1,0 +1,54 @@
+# Copyright 2005-2007 ECMWF
+# 
+# Licensed under the GNU Lesser General Public License which
+# incorporates the terms and conditions of version 3 of the GNU
+# General Public License.
+# See LICENSE and gpl-3.0.txt for details.
+# Author: Enrico Zini. Modified by Enrico Minguzzi, 10/12/2010
+
+# TEMPLATE 3.0, Latitude/longitude (or equidistant cylindrical, or Plate Carree)
+
+codetable[1] datum ('3.datum.table',masterDir,localDir) : dump;
+
+if (datum == 0)
+{
+	include "grib2/template.3.shape_of_the_earth.def";
+	# FIXME: 5 significant digits
+	signed[4] referenceLongitude : edition_specific;
+	unsigned[3] falseEasting : dump;
+	unsigned[3] falseNorthing : dump;
+}
+
+unsigned[4] Ni : can_be_missing,dump;
+alias numberOfPointsAlongXDirection=Ni;
+alias Nx = Ni;
+
+unsigned[4] Nj : dump;
+alias numberOfPointsAlongYDirection=Nj;
+alias Ny = Nj;
+
+alias geography.Ni=Ni;
+alias geography.Nj=Nj;
+
+#  Di - i direction increment
+unsigned[4] iDirectionIncrement : can_be_missing,edition_specific;
+alias Di =  iDirectionIncrement;
+alias Dx =  iDirectionIncrement;
+
+#  Dj - j direction increment
+unsigned[4] jDirectionIncrement : can_be_missing,edition_specific;
+alias Dj =  jDirectionIncrement;
+alias Dy =  jDirectionIncrement;
+
+include "grib2/template.3.resolution_flags.def"
+include "grib2/template.3.scanning_mode.def";
+
+# UTM zone
+unsigned[1] zone : dump;
+
+# Extremities
+signed[3] eastingOfFirstGridPoint : dump;
+signed[3] eastingOfLastGridPoint : dump;
+signed[4] northingOfFirstGridPoint : dump;
+signed[4] northingOfLastGridPoint : dump;
+
