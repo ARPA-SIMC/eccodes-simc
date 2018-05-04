@@ -1,0 +1,45 @@
+diff -Nur '--exclude=.*' original/grib1/5.table all/grib1/5.table
+--- original/grib1/5.table	2014-05-21 16:50:24.000000000 +0200
++++ all/grib1/5.table	2014-08-26 11:01:35.000000000 +0200
+@@ -6,6 +6,7 @@
+ 4 4 Accumulation (reference time + P1 to reference time + P2) product considered valid at reference time + P2
+ 5 5 Difference (reference time + P2 minus reference time + P1) product considered valid at reference time + P2
+ 10 10 P1 occupies octets 19 and 20; product valid at reference time + P1
++13 13 Cosmo nudging analysis product for reference time (P1=0)
+ 51 51 Climatological Mean Value:
+ 113 113 Average of N forecasts (or initialized analyses); each product has forecast period of P1 (P1=0 for initialized analyses); products have reference times at intervals of P2, beginning at the given reference time.
+ 114 114 Accumulation of N forecasts (or initialized analyses); each product has forecast period of P1 (P1=0 for initialized analyses); products have reference times at intervals of P2, beginning at the given reference time.
+diff -Nur '--exclude=.*' original/grib1/grid_definition_90.def all/grib1/grid_definition_90.def
+--- original/grib1/grid_definition_90.def	2014-05-21 16:50:24.000000000 +0200
++++ all/grib1/grid_definition_90.def	2014-08-26 11:01:34.000000000 +0200
+@@ -65,7 +65,7 @@
+ #Ce      numbers of points.
+ #Ce      (Lambert conformal and Mercator are 42 octets in length,
+ #Ce      while Space view is 40 for ECMWF (44 in GRIB specification)
+-if ( centre != 98 ) {
++if ( centre != 98 and centre != 200  ) {
+   pad padding_grid90_1(6);
+ }
+ 
+diff -Nur '--exclude=.*' original/grib1/localConcepts/ecmf/stepType.def all/grib1/localConcepts/ecmf/stepType.def
+--- original/grib1/localConcepts/ecmf/stepType.def	2016-06-29 14:13:34.525884360 +0200
++++ all/grib1/localConcepts/ecmf/stepType.def.new	2016-06-29 14:18:38.025409118 +0200
+@@ -5,6 +5,7 @@
+ "instant" = {timeRangeIndicator=0;}
+ "instant" = {timeRangeIndicator=10;}
+ "instant" = {timeRangeIndicator=1;}
++"instant" = {timeRangeIndicator=13;} # Fields from DWD in MARS
+ "instant" = {timeRangeIndicator=14;} # Fields from DWD in MARS
+ 
+ "avg"     = {timeRangeIndicator=3;}
+diff -Nur '--exclude=.*' original/grib2/section.3.def all/grib2/section.3.def
+--- original/grib2/section.3.def	2014-05-21 16:50:25.000000000 +0200
++++ all/grib2/section.3.def	2014-08-26 11:01:35.000000000 +0200
+@@ -96,6 +96,7 @@
+  "cross_section"         = { gridDefinitionTemplateNumber=1000;PLPresent=0; }
+  "Hovmoller"             = { gridDefinitionTemplateNumber=1100;PLPresent=0; }
+  "time_section"          = { gridDefinitionTemplateNumber=1200;PLPresent=0; }
++ "UTM"                   = { gridDefinitionTemplateNumber=32768;PLPresent=0; }
+  "unknown"               = {PLPresent=0;}
+  "unknown_PLPresent"     = {PLPresent=1;}
+ } : dump;
