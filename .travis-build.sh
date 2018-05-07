@@ -32,7 +32,6 @@ then
     pkgname=eccodes-simc-$(git describe --abbrev=0 --tags --match='v*' | sed -e 's,^v,,g')
     mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
     cp eccodes-simc.spec ~/rpmbuild/SPECS/
-    cp fedora/SOURCES/* ~/rpmbuild/SOURCES/
     git archive --prefix=$pkgname/ --format=tar HEAD | gzip -c > ~/rpmbuild/SOURCES/$pkgname.tar.gz
     rpmbuild -ba ~/rpmbuild/SPECS/eccodes-simc.spec
     find ~/rpmbuild/{RPMS,SRPMS}/ -name "${pkgname}*rpm" -exec cp -v {} . \;
