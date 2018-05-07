@@ -13,6 +13,7 @@ then
     yum install -q -y yum-utils
     yum install -q -y yum-plugin-copr
     yum install -q -y git
+    yum install -q -y rpmdevtools
     yum copr enable -q -y simc/stable
 elif [[ $image =~ ^fedora: ]]
 then
@@ -22,6 +23,7 @@ then
     dnf install -q -y @buildsys-build
     dnf install -q -y 'dnf-command(builddep)'
     dnf install -q -y git
+    dnf install -q -y rpmdevtools
     dnf copr enable -q -y simc/stable
 fi
 
