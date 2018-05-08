@@ -58,8 +58,9 @@ popd
 %{_datadir}/%{name}/*
 
 %changelog
+* Tue May 8 2018 Daniele Branchini <dbranchini@arpae.it> - 0.2-1%{dist}
+- added missing definition
+
 * Fri May 4 2018 Daniele Branchini <dbranchini@arpae.it> - 0.1-1%{dist}
 - first build
 
-* Tue May 8 2018 Daniele Branchini <dbranchini@arpae.it> - 0.2-1%{dist}
-- added missing definition
