@@ -1,7 +1,7 @@
 %global releaseno 1
 
 Name:           eccodes-simc
-Version:        0.2
+Version:        0.3
 Release:        %{releaseno}%{?dist}
 Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
@@ -39,14 +39,14 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
 %{__install} %{SOURCE1} %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
 %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
-mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib1/localConcepts/ecmf/
+mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 cp -a %{_datadir}/eccodes/definitions/grib1/local.98.* %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 rename local.98 local.200 %{buildroot}%{_datadir}/%{name}/definitions/grib1/local.98.*
 %{__install} %{SOURCE4} %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 
 cp %{_datadir}/eccodes/definitions/grib1/5.table %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 cp %{_datadir}/eccodes/definitions/grib1/grid_definition_90.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-cp %{_datadir}/eccodes/definitions/grib1/localConcepts/ecmf/stepType.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/localConcepts/ecmf/
+cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 pushd %{buildroot}%{_datadir}/%{name}/definitions/
@@ -58,6 +58,9 @@ popd
 %{_datadir}/%{name}/*
 
 %changelog
+* Thu Jun 7 2018 Daniele Branchini <dbranchini@arpae.it> - 0.3-1%{dist}
+- fixed COSMO analysis files stepfile (#5)
+
 * Tue May 8 2018 Daniele Branchini <dbranchini@arpae.it> - 0.2-1%{dist}
 - added missing definition
 

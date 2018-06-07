@@ -22,16 +22,16 @@ diff -Nur '--exclude=.*' original/grib1/grid_definition_90.def all/grib1/grid_de
  }
  
 diff -Nur '--exclude=.*' original/grib1/localConcepts/ecmf/stepType.def all/grib1/localConcepts/ecmf/stepType.def
---- original/grib1/localConcepts/ecmf/stepType.def	2016-06-29 14:13:34.525884360 +0200
-+++ all/grib1/localConcepts/ecmf/stepType.def.new	2016-06-29 14:18:38.025409118 +0200
+--- original/grib1/stepType.def	2016-06-29 14:13:34.525884360 +0200
++++ all/grib1/stepType.def.new	2016-06-29 14:18:38.025409118 +0200
 @@ -5,6 +5,7 @@
  "instant" = {timeRangeIndicator=0;}
  "instant" = {timeRangeIndicator=10;}
  "instant" = {timeRangeIndicator=1;}
-+"instant" = {timeRangeIndicator=13;} # Fields from DWD in MARS
- "instant" = {timeRangeIndicator=14;} # Fields from DWD in MARS
++"instant" = {timeRangeIndicator=13;}
  
  "avg"     = {timeRangeIndicator=3;}
+ 
 diff -Nur '--exclude=.*' original/grib2/section.3.def all/grib2/section.3.def
 --- original/grib2/section.3.def	2014-05-21 16:50:25.000000000 +0200
 +++ all/grib2/section.3.def	2014-08-26 11:01:35.000000000 +0200
