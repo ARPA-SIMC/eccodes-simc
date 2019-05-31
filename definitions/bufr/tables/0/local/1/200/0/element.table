@@ -1,0 +1,10 @@
+#code|abbreviation|type|name|unit|scale|reference|width|crex_unit|crex_scale|crex_width
+001194|SimcReportMnemonic|string|[SIM] Report mnemonic|CCITT IA5|0|0|128|CHARACTER|0|16
+004192|SimcTimerangeType|table|[SIM] Time range type|CODE TABLE|0|0|10|CODE TABLE|0|4
+004193|SimcTimerangeP1|long|[SIM] Time range P1|NUMERIC|0|-536870912|31|NUMERIC|0|10
+004194|SimcTimerangeP2|long|[SIM] Time range P2|NUMERIC|0|-536870912|31|NUMERIC|0|10
+007192|SimcLevelType1|table|[SIM] First level type|CODE TABLE|0|0|10|CODE TABLE|0|4
+007193|SimcLevel1|long|[SIM] Level L1|NUMERIC|0|-536870912|31|NUMERIC|0|10
+007194|SimcLevel2|long|[SIM] Level L2|NUMERIC|0|-536870912|31|NUMERIC|0|10
+007195|SimcLevelType2|table|[SIM] Second level type|CODE TABLE|0|0|31|CODE TABLE|0|4
+033210|SimcDataInTheIntervalUsed|long|[SIM] Data in the interval used to compute the value|%|0|0|7|%|0|3
