@@ -40,7 +40,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
 %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-cp -a %{_datadir}/eccodes/definitions/grib1/local.98.* %{buildroot}%{_datadir}/%{name}/definitions/grib1/
+cp -as %{_datadir}/eccodes/definitions/grib1/local.98.* %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 rename local.98 local.200 %{buildroot}%{_datadir}/%{name}/definitions/grib1/local.98.*
 %{__install} %{SOURCE4} %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 
