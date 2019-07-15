@@ -1,4 +1,4 @@
-%global releaseno 1
+%global releaseno 2
 
 Name:           eccodes-simc
 Version:        0.3
@@ -32,8 +32,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/profile.d/
 echo "export ECCODES_DEFINITION_PATH=\"%{_datarootdir}/eccodes-simc/definitions/:%{_datarootdir}/eccodes/definitions/\"" > %{buildroot}/%{_sysconfdir}/profile.d/%{name}.sh
 echo "export  ECCODES_SAMPLES_PATH=\"%{_datarootdir}/eccodes-simc/samples/:%{_datarootdir}/eccodes/samples/\"" >> %{buildroot}/%{_sysconfdir}/profile.d/%{name}.sh
 
-mkdir -p %{buildroot}%{_datadir}/%{name}/sample/
-%{__install} %{SOURCE0} %{buildroot}%{_datadir}/%{name}/sample
+mkdir -p %{buildroot}%{_datadir}/%{name}/samples/
+%{__install} %{SOURCE0} %{buildroot}%{_datadir}/%{name}/samples
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
 %{__install} %{SOURCE1} %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
