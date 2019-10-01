@@ -50,7 +50,7 @@ cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{
 cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 pushd %{buildroot}%{_datadir}/%{name}/definitions/
-/usr/bin/patch -p1 --suffix < %{SOURCE3}
+/usr/bin/patch -p1 < %{SOURCE3}
 popd
 
 %files
