@@ -1,7 +1,7 @@
-%global releaseno 2
+%global releaseno 1
 
 Name:           eccodes-simc
-Version:        0.3
+Version:        0.4
 Release:        %{releaseno}%{?dist}
 Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
@@ -50,7 +50,7 @@ cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{
 cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 pushd %{buildroot}%{_datadir}/%{name}/definitions/
-/usr/bin/patch -p1 --suffix --fuzz=0 < %{SOURCE3}
+/usr/bin/patch -p1 --suffix < %{SOURCE3}
 popd
 
 %files
@@ -58,6 +58,9 @@ popd
 %{_datadir}/%{name}/*
 
 %changelog
+* Tue Oct 1 2019 Daniele Branchini <dbranchini@arpae.it> - 0.4-1%{dist}
+- updated patch offset
+
 * Thu Jun 7 2018 Daniele Branchini <dbranchini@arpae.it> - 0.3-1%{dist}
 - fixed COSMO analysis files stepfile (#5)
 

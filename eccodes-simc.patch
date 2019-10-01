@@ -1,9 +1,9 @@
 diff -Nur '--exclude=.*' original/grib1/5.table all/grib1/5.table
 --- original/grib1/5.table	2014-05-21 16:50:24.000000000 +0200
 +++ all/grib1/5.table	2014-08-26 11:01:35.000000000 +0200
-@@ -6,6 +6,7 @@
- 4 4 Accumulation (reference time + P1 to reference time + P2) product considered valid at reference time + P2
- 5 5 Difference (reference time + P2 minus reference time + P1) product considered valid at reference time + P2
+@@ -8,6 +8,7 @@
+ 6 6 Average (reference time - P1 to reference time - P2)
+ 7 7 Average (reference time - P1 to reference time + P2)
  10 10 P1 occupies octets 19 and 20; product valid at reference time + P1
 +13 13 Cosmo nudging analysis product for reference time (P1=0)
  51 51 Climatological Mean Value:
@@ -12,7 +12,7 @@ diff -Nur '--exclude=.*' original/grib1/5.table all/grib1/5.table
 diff -Nur '--exclude=.*' original/grib1/grid_definition_90.def all/grib1/grid_definition_90.def
 --- original/grib1/grid_definition_90.def	2014-05-21 16:50:24.000000000 +0200
 +++ all/grib1/grid_definition_90.def	2014-08-26 11:01:34.000000000 +0200
-@@ -65,7 +65,7 @@
+@@ -56,7 +56,7 @@
  #Ce      numbers of points.
  #Ce      (Lambert conformal and Mercator are 42 octets in length,
  #Ce      while Space view is 40 for ECMWF (44 in GRIB specification)
@@ -24,7 +24,7 @@ diff -Nur '--exclude=.*' original/grib1/grid_definition_90.def all/grib1/grid_de
 diff -Nur '--exclude=.*' original/grib1/localConcepts/ecmf/stepType.def all/grib1/localConcepts/ecmf/stepType.def
 --- original/grib1/stepType.def	2016-06-29 14:13:34.525884360 +0200
 +++ all/grib1/stepType.def.new	2016-06-29 14:18:38.025409118 +0200
-@@ -5,6 +5,7 @@
+@@ -6,6 +6,7 @@
  "instant" = {timeRangeIndicator=0;}
  "instant" = {timeRangeIndicator=10;}
  "instant" = {timeRangeIndicator=1;}
@@ -35,11 +35,11 @@ diff -Nur '--exclude=.*' original/grib1/localConcepts/ecmf/stepType.def all/grib
 diff -Nur '--exclude=.*' original/grib2/section.3.def all/grib2/section.3.def
 --- original/grib2/section.3.def	2014-05-21 16:50:25.000000000 +0200
 +++ all/grib2/section.3.def	2014-08-26 11:01:35.000000000 +0200
-@@ -96,6 +96,7 @@
+@@ -103,6 +103,7 @@
   "cross_section"         = { gridDefinitionTemplateNumber=1000;PLPresent=0; }
   "Hovmoller"             = { gridDefinitionTemplateNumber=1100;PLPresent=0; }
   "time_section"          = { gridDefinitionTemplateNumber=1200;PLPresent=0; }
 + "UTM"                   = { gridDefinitionTemplateNumber=32768;PLPresent=0; }
-  "unknown"               = {PLPresent=0;}
-  "unknown_PLPresent"     = {PLPresent=1;}
- } : dump;
+  "lambert_lam"             = { gridDefinitionTemplateNumber=33; PLPresent=0;  }
+  "mercator_lam"            = { gridDefinitionTemplateNumber=13; PLPresent=0;  }
+  "polar_stereographic_lam" = { gridDefinitionTemplateNumber=23; PLPresent=0;  }
