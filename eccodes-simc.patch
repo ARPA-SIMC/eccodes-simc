@@ -12,10 +12,10 @@ diff -Nur '--exclude=.*' original/grib1/5.table all/grib1/5.table
 diff -Nur '--exclude=.*' original/grib1/grid_definition_90.def all/grib1/grid_definition_90.def
 --- original/grib1/grid_definition_90.def	2014-05-21 16:50:24.000000000 +0200
 +++ all/grib1/grid_definition_90.def	2014-08-26 11:01:34.000000000 +0200
-@@ -56,7 +56,7 @@
- #Ce      numbers of points.
- #Ce      (Lambert conformal and Mercator are 42 octets in length,
- #Ce      while Space view is 40 for ECMWF (44 in GRIB specification)
+@@ -58,7 +58,7 @@
+ #Ce numbers of points.
+ #Ce (Lambert conformal and Mercator are 42 octets in length,
+ #Ce while Space view is 40 for ECMWF (44 in GRIB specification)
 -if ( centre != 98 ) {
 +if ( centre != 98 and centre != 200  ) {
    pad padding_grid90_1(6);
@@ -35,11 +35,11 @@ diff -Nur '--exclude=.*' original/grib1/localConcepts/ecmf/stepType.def all/grib
 diff -Nur '--exclude=.*' original/grib2/section.3.def all/grib2/section.3.def
 --- original/grib2/section.3.def	2014-05-21 16:50:25.000000000 +0200
 +++ all/grib2/section.3.def	2014-08-26 11:01:35.000000000 +0200
-@@ -103,6 +103,7 @@
+@@ -104,6 +104,7 @@
   "cross_section"         = { gridDefinitionTemplateNumber=1000;PLPresent=0; }
   "Hovmoller"             = { gridDefinitionTemplateNumber=1100;PLPresent=0; }
   "time_section"          = { gridDefinitionTemplateNumber=1200;PLPresent=0; }
 + "UTM"                   = { gridDefinitionTemplateNumber=32768;PLPresent=0; }
-  "lambert_lam"             = { gridDefinitionTemplateNumber=33; PLPresent=0;  }
-  "mercator_lam"            = { gridDefinitionTemplateNumber=13; PLPresent=0;  }
-  "polar_stereographic_lam" = { gridDefinitionTemplateNumber=23; PLPresent=0;  }
+  "lambert_lam"             = { gridDefinitionTemplateNumber=33; PLPresent=0; }
+  "mercator_lam"            = { gridDefinitionTemplateNumber=13; PLPresent=0; }
+  "polar_stereographic_lam" = { gridDefinitionTemplateNumber=23; PLPresent=0; }

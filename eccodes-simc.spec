@@ -1,4 +1,4 @@
-%global releaseno 2
+%global releaseno 3
 
 Name:           eccodes-simc
 Version:        0.4
@@ -50,7 +50,7 @@ cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{
 cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 pushd %{buildroot}%{_datadir}/%{name}/definitions/
-/usr/bin/patch -p1 --fuzz=3 < %{SOURCE3}
+/usr/bin/patch -p1 < %{SOURCE3}
 popd
 
 %files
@@ -58,6 +58,9 @@ popd
 %{_datadir}/%{name}/*
 
 %changelog
+* Wed Jun 29 2022 Daniele Branchini <dbranchini@arpae.it> - 0.4-3%{?dist}
+- Fixed patch
+
 * Fri Jun 3 2022 Daniele Branchini <dbranchini@arpae.it> - 0.4-2%{dist}
 - Added fuzz option to patch
 
