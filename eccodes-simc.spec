@@ -12,6 +12,7 @@ Source1:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-
 Source2:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/template.3.32768.def
 Source3:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc.patch
 Source4:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/local.200.254.def
+Source5:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc_el7.patch
 
 BuildRequires:  eccodes, util-linux
 Requires:       eccodes
@@ -50,7 +51,11 @@ cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{
 cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 pushd %{buildroot}%{_datadir}/%{name}/definitions/
+%if 0%{?rhel} == 7
+/usr/bin/patch -p1 < %{SOURCE5}
+%else
 /usr/bin/patch -p1 < %{SOURCE3}
+%endif
 popd
 
 %files
