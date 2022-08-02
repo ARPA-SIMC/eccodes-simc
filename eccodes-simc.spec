@@ -1,7 +1,7 @@
-%global releaseno 3
+%global releaseno 1
 
 Name:           eccodes-simc
-Version:        0.4
+Version:        0.5
 Release:        %{releaseno}%{?dist}
 Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
@@ -38,7 +38,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/samples/
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
 %{__install} %{SOURCE1} %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
-%{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 cp -as %{_datadir}/eccodes/definitions/grib1/local.98.* %{buildroot}%{_datadir}/%{name}/definitions/grib1/
@@ -49,6 +48,16 @@ cp %{_datadir}/eccodes/definitions/grib1/5.table %{buildroot}%{_datadir}/%{name}
 cp %{_datadir}/eccodes/definitions/grib1/grid_definition_90.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/
 cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
+
+# around eccodes v2.23 this line appeared
+if grep -q 'gridDefinitionTemplateNumber *>= *32768' %{_datadir}/eccodes/definitions/grib2/section.3.def; then
+  mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/cnmc \
+   %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/200
+  %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/cnmc
+  %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/200
+else
+  %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2
+fi
 
 pushd %{buildroot}%{_datadir}/%{name}/definitions/
 %if 0%{?rhel} == 7
@@ -63,6 +72,9 @@ popd
 %{_datadir}/%{name}/*
 
 %changelog
+* Tue Aug 2 2022 Davide Cesari <dcesari@arpae.it> - 0.5-1%{?dist}
+- Move UTM template in local sections if required
+
 * Wed Jun 29 2022 Daniele Branchini <dbranchini@arpae.it> - 0.4-3%{?dist}
 - Fixed patch
 
