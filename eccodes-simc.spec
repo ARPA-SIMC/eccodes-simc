@@ -29,43 +29,12 @@ Custom grib definitions and samples used at ARPAE-SIMC:
 
 %install
 [ "%{buildroot}" != / ] && rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_sysconfdir}/profile.d/
-echo "export ECCODES_DEFINITION_PATH=\"%{_datarootdir}/eccodes-simc/definitions/:%{_datarootdir}/eccodes/definitions/\"" > %{buildroot}/%{_sysconfdir}/profile.d/%{name}.sh
-echo "export  ECCODES_SAMPLES_PATH=\"%{_datarootdir}/eccodes-simc/samples/:%{_datarootdir}/eccodes/samples/\"" >> %{buildroot}/%{_sysconfdir}/profile.d/%{name}.sh
 
-mkdir -p %{buildroot}%{_datadir}/%{name}/samples/
-%{__install} %{SOURCE0} %{buildroot}%{_datadir}/%{name}/samples
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
-%{__install} %{SOURCE1} %{buildroot}%{_datadir}/%{name}/definitions/grib2/tables/0/
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-cp -as %{_datadir}/eccodes/definitions/grib1/local.98.* %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-rename local.98 local.200 %{buildroot}%{_datadir}/%{name}/definitions/grib1/local.98.*
-%{__install} %{SOURCE4} %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-
-cp %{_datadir}/eccodes/definitions/grib1/5.table %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-cp %{_datadir}/eccodes/definitions/grib1/grid_definition_90.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-cp %{_datadir}/eccodes/definitions/grib1/stepType.def %{buildroot}%{_datadir}/%{name}/definitions/grib1/
-cp %{_datadir}/eccodes/definitions/grib2/section.3.def %{buildroot}%{_datadir}/%{name}/definitions/grib2/
-
-# around eccodes v2.23 this line appeared
-if grep -q 'gridDefinitionTemplateNumber *>= *32768' %{_datadir}/eccodes/definitions/grib2/section.3.def; then
-  mkdir -p %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/cnmc \
-   %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/200
-  %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/cnmc
-  %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2/local/200
-else
-  %{__install} %{SOURCE2} %{buildroot}%{_datadir}/%{name}/definitions/grib2
-fi
-
-pushd %{buildroot}%{_datadir}/%{name}/definitions/
 %if 0%{?rhel} == 7
-/usr/bin/patch -p1 < %{SOURCE5}
+./make-defs --prefix=%{buildroot} --sysconfdir=%{_sysconfdir} --datadir=%{_datadir} --patch=eccodes-simc_el7.patch
 %else
-/usr/bin/patch -p1 < %{SOURCE3}
+./make-defs --prefix=%{buildroot} --sysconfdir=%{_sysconfdir} --datadir=%{_datadir} --patch=eccodes-simc.patch
 %endif
-popd
 
 %files
 %{_sysconfdir}/profile.d/%{name}.sh

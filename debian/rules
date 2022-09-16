@@ -1,4 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ -Smeson
+	dh $@
+
+override_dh_auto_install:
+	./make-defs --prefix=debian/eccodes-simc --patch=eccodes-simc.patch

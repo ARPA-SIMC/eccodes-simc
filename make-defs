@@ -1,0 +1,129 @@
+#!/usr/bin/python3
+
+import argparse
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+def install_profile_files(args):
+    """
+    Write profile files in /etc/profile.d to export ECCODES_* variables to
+    include eccodes-simc definitions
+    """
+    root = Path(args.prefix)
+    profiledir = root / args.sysconfdir / "profile.d"
+    profiledir.mkdir(parents=True, exist_ok=True)
+    with open(profiledir / "eccodes-simc.sh", "wt") as fd:
+        system_datadir = Path("/") / args.datadir
+        definition_paths = [
+            system_datadir / 'eccodes-simc' / 'definitions',
+            system_datadir / 'eccodes' / 'definitions',
+        ]
+        print("export ECCODES_DEFINITION_PATH=" + ':'.join(
+            shlex.quote(path.as_posix()) for path in definition_paths), file=fd)
+
+        samples_paths = [
+            system_datadir / 'eccodes-simc' / 'samples',
+            system_datadir / 'eccodes' / 'samples',
+        ]
+        print("export ECCODES_SAMPLES_PATH=" + ':'.join(
+            shlex.quote(path.as_posix()) for path in samples_paths), file=fd)
+
+
+def is_eccodes_post_2_23(args):
+    """
+    Check if eccodes is newer than 2.23
+    """
+    re_is_new = re.compile(r"gridDefinitionTemplateNumber\s*>=\*32768")
+    system_grib2 = Path("/") / args.datadir / "eccodes" / "definitions" / "grib2"
+
+    # around eccodes v2.23 this line appeared
+    with open(system_grib2 / "section.3.def", "rt") as fd:
+        for line in fd:
+            if re_is_new.search(line):
+                return True
+
+    return False
+
+
+def install_definitions(args):
+    """
+    Install eccodes-simc definitions
+    """
+    root = Path(args.prefix)
+    datadir = Path(args.datadir)
+
+    samples_dir = root / datadir / "eccodes-simc" / "samples"
+    samples_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile("utm_grib2.tmpl", samples_dir / "utm_grib2.tmpl")
+
+    tables0_dir = root / datadir / "eccodes-simc" / "tables" / "0"
+    tables0_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile("3.datum.table", tables0_dir / "3.datum.table")
+
+    system_grib1 = Path("/") / datadir / "eccodes" / "definitions" / "grib1"
+    dest_grib1 = root / datadir / "eccodes-simc" / "definitions" / "grib1"
+    dest_grib1.mkdir(parents=True, exist_ok=True)
+
+    system_grib2 = Path("/") / datadir / "eccodes" / "definitions" / "grib2"
+    dest_grib2 = root / datadir / "eccodes-simc" / "definitions" / "grib2"
+    dest_grib2.mkdir(parents=True, exist_ok=True)
+
+    # Symlink local.98 definitions as local.200
+    for path in system_grib1.iterdir():
+        if not path.name.startswith("local.98."):
+            continue
+        (dest_grib1 / ("local.200." + path.name[9:])).symlink_to(path)
+
+    # Copy new SIMC template
+    shutil.copyfile("local.200.254.def", dest_grib1 / "local.200.254.def")
+
+    # Copy files from eccodes
+    for fn in ("5.table", "grid_definition_90.def", "stepType.def"):
+        shutil.copyfile(system_grib1 / fn, dest_grib1 / fn)
+    shutil.copyfile(system_grib2 / "section.3.def", dest_grib2 / "section.3.def")
+
+    # Add local grib2 template
+    if is_eccodes_post_2_23(args):
+        cnmc_dir = dest_grib2 / "local" / "cnmc"
+        cnmc_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile("template.3.32768.def", cnmc_dir / "template.3.32768.def")
+
+        def200_dir = dest_grib2 / "local" / "cnmc"
+        def200_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile("template.3.32768.def", def200_dir / "template.3.32768.def")
+    else:
+        shutil.copyfile("template.3.32768.def", dest_grib2 / "template.3.32768.def")
+
+    # Apply local patch to eccodes originals
+    subprocess.run(
+            ["patch", "-p1", "--input=" + Path(args.patch).resolve().as_posix()],
+            cwd=root / datadir / "eccodes-simc" / "definitions", check=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate custom SIMC eccodes definitions")
+    parser.add_argument(
+            "--prefix", action="store", default="/",
+            help="install in this directory instead of in the main system. Default: %(default)s")
+    parser.add_argument(
+            "--sysconfdir", action="store", default="etc",
+            help="system configuration directory. Default: %(default)s")
+    parser.add_argument(
+            "--datadir", action="store", default="usr/share",
+            help="system data directory. Default: %(default)s")
+    parser.add_argument(
+            "--patch", action="store", default="eccodes-simc.patch",
+            help="patch to apply to local copy of eccodes definitions. Default: %(default)s")
+
+    args = parser.parse_args()
+    install_profile_files(args)
+    install_definitions(args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
