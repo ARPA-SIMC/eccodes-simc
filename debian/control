@@ -1,0 +1,15 @@
+Source: eccodes-simc
+Section: science
+Priority: optional
+Maintainer: Enrico Zini <enrico@debian.org>
+Build-Depends: debhelper (>= 12), meson, libeccodes-data
+Standards-Version: 4.1.5
+Rules-Requires-Root: no
+Homepage: https://github.com/ARPA-SIMC/eccodes-simc
+Vcs-Git: https://github.com/ARPA-SIMC/eccodes-simc.git
+
+Package: eccodes-simc
+Section: science
+Architecture: any
+Depends: libeccodes-data
+Description: SIMC custom definitions and templates for ecCodes
