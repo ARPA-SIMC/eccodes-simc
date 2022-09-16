@@ -1,2 +1,0 @@
-export ECCODES_DEFINITION_PATH="@datadir@/eccodes-simc/definitions/:@datadir@/eccodes/definitions/"
-export ECCODES_SAMPLES_PATH="@datadir@/eccodes-simc/samples/:@datadir@/eccodes/samples/"
