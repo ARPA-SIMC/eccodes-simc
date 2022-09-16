@@ -4,4 +4,4 @@
 	dh $@
 
 override_dh_auto_install:
-	./make-defs --prefix=debian/eccodes-simc --patch=eccodes-simc.patch
+	./make-defs --prefix=debian/eccodes-simc

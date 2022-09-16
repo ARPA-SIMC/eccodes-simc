@@ -30,11 +30,7 @@ Custom grib definitions and samples used at ARPAE-SIMC:
 %install
 [ "%{buildroot}" != / ] && rm -rf %{buildroot}
 
-%if 0%{?rhel} == 7
-./make-defs --prefix=%{buildroot} --sysconfdir=%{_sysconfdir} --datadir=%{_datadir} --patch=eccodes-simc_el7.patch
-%else
-./make-defs --prefix=%{buildroot} --sysconfdir=%{_sysconfdir} --datadir=%{_datadir} --patch=eccodes-simc.patch
-%endif
+./make-defs --prefix=%{buildroot} --sysconfdir=%{_sysconfdir} --datadir=%{_datadir}
 
 %files
 %{_sysconfdir}/profile.d/%{name}.sh
