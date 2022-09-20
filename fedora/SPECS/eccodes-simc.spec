@@ -32,7 +32,7 @@ Custom grib definitions and samples used at ARPAE-SIMC:
 
 sysconfdir=%{_sysconfdir}
 datadir=%{_datadir}
-./make-defs --prefix=%{buildroot} --sysconfdir=%{sysconfdir:1} --datadir=%{datadir:1}
+./make-defs --prefix=%{buildroot} --sysconfdir=${sysconfdir:1} --datadir=${datadir:1}
 
 %clean
 [ "%{buildroot}" != / ] && rm -rf %{buildroot}
