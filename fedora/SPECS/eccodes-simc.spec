@@ -4,7 +4,7 @@
 
 Name:           eccodes-simc
 Version:        0.5
-Release:        %{releaseno}%{?dist}
+Release:        %{releaseno}
 Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
 URL:            https://arpae.it/sim
