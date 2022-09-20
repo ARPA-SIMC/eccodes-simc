@@ -13,6 +13,7 @@ Source2:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-
 Source3:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc.patch
 Source4:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/local.200.254.def
 Source5:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc_el7.patch
+Source6:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/make-defs
 
 BuildRequires:  eccodes, util-linux, python3
 Requires:       eccodes
