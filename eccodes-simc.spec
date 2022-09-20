@@ -1,4 +1,6 @@
 %global releaseno 1
+# Note: define srcarchivename in Travis build only.
+%{!?srcarchivename: %global srcarchivename %{name}-%{version}-%{releaseno}}
 
 Name:           eccodes-simc
 Version:        0.5
@@ -7,13 +9,7 @@ Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
 URL:            https://arpae.it/sim
 BuildArch:      noarch
-Source0:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/utm_grib2.tmpl
-Source1:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/3.datum.table
-Source2:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/template.3.32768.def
-Source3:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc.patch
-Source4:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/local.200.254.def
-Source5:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/eccodes-simc_el7.patch
-Source6:        https://raw.githubusercontent.com/ARPA-SIMC/%{name}/v%{version}-%{releaseno}/make-defs
+Source0:        https://github.com/arpa-simc/%{name}/archive/v%{version}-%{releaseno}.tar.gz#/%{srcarchivename}.tar.gz
 
 BuildRequires:  eccodes, util-linux, python3
 Requires:       eccodes
@@ -24,6 +20,9 @@ Custom grib definitions and samples used at ARPAE-SIMC:
 - definitions for centre 200 (old COSMO implementation)
 - timerange 13 (for nudging analysis)
 - UTM grib2
+
+%prep
+%setup -q -n %{srcarchivename}
 
 %build
 
