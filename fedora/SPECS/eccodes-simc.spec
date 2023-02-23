@@ -1,4 +1,4 @@
-%global releaseno 1
+%global releaseno 2
 # Note: define srcarchivename in Travis build only.
 %{!?srcarchivename: %global srcarchivename %{name}-%{version}-%{releaseno}}
 
@@ -42,6 +42,9 @@ datadir=%{_datadir}
 %{_datadir}/%{name}/*
 
 %changelog
+* Thu Feb 23 2023 Daniele Branchini <dbranchini@arpae.it> - 0.5-2
+- Cleanup of fedora/rhel packaging, added debian packaging files
+
 * Tue Aug 2 2022 Davide Cesari <dcesari@arpae.it> - 0.5-1%{?dist}
 - Move UTM template in local sections if required
 
