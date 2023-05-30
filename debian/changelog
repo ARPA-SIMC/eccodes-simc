@@ -1,3 +1,9 @@
+eccodes-simc (0.r65-1) unstable; urgency=low
+
+  * fix to correctly reproduce previous shell-in-spec behavior
+
+ -- Emanuele Di Giacomo <edigiacomo@arpae.it>  Tue, 30 May 2023 15:11:13 +0200
+
 eccodes-simc (0.5-1) unstable; urgency=low
 
   * Initial version
