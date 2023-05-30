@@ -50,7 +50,7 @@ def is_eccodes_post_2_23(args):
     """
     Check if eccodes is newer than 2.23
     """
-    re_is_new = re.compile(r"gridDefinitionTemplateNumber\s*>=\*32768")
+    re_is_new = re.compile(r"gridDefinitionTemplateNumber\s*>=\s*32768")
     system_grib2 = Path("/") / args.datadir / "eccodes" / "definitions" / "grib2"
 
     # around eccodes v2.23 this line appeared
@@ -118,7 +118,7 @@ def install_definitions(args):
         cnmc_dir.mkdir(parents=True, exist_ok=True)
         shutil.copyfile("template.3.32768.def", cnmc_dir / "template.3.32768.def")
 
-        def200_dir = def_grib2_dir / "local" / "cnmc"
+        def200_dir = def_grib2_dir / "local" / "200"
         def200_dir.mkdir(parents=True, exist_ok=True)
         shutil.copyfile("template.3.32768.def", def200_dir / "template.3.32768.def")
     else:

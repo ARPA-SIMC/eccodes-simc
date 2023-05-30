@@ -3,7 +3,7 @@
 %{!?srcarchivename: %global srcarchivename %{name}-%{version}-%{releaseno}}
 
 Name:           eccodes-simc
-Version:        0.5
+Version:        0.6
 Release:        %{releaseno}
 Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
@@ -42,6 +42,12 @@ datadir=%{_datadir}
 %{_datadir}/%{name}/*
 
 %changelog
+* Tue May 30 2023 Daniele Branchini <dbranchini@arpae.it> - 0.6-1
+- Move UTM template in local sections if required (Re-fixed #8)
+
+* Thu Feb 23 2023 Daniele Branchini <dbranchini@arpae.it> - 0.5-2
+- Cleanup of fedora/rhel packaging, added debian packaging files
+
 * Tue Aug 2 2022 Davide Cesari <dcesari@arpae.it> - 0.5-1%{?dist}
 - Move UTM template in local sections if required
 
