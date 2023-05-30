@@ -1,4 +1,4 @@
-eccodes-simc (0.r65-1) unstable; urgency=low
+eccodes-simc (0.6-1) unstable; urgency=low
 
   * fix to correctly reproduce previous shell-in-spec behavior
 
