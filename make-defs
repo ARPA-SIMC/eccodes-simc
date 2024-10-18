@@ -122,15 +122,17 @@ def install_definitions(args):
     shutil.copyfile(system_grib2 / "section.3.def", def_grib2_dir / "section.3.def")
 
     # Add templates subdir if needed
-    if has_eccodes_grib2_templates_subdir(args):
-        with open("template.3.32768.def.in") as fp:
-            template_file = fp.read().replace(
-                "grib2/template.",
-                "grib2/templates/template.",
-            )
+    with open("template.3.32768.def.in") as fp:
+        template_file = fp.read()
 
-        with open("template.3.32768.def", "w") as fp:
-            fp.write(template_file)
+    if has_eccodes_grib2_templates_subdir(args):
+        template_file = template_file.replace(
+            "grib2/template.",
+            "grib2/templates/template.",
+        )
+
+    with open("template.3.32768.def", "w") as fp:
+        fp.write(template_file)
 
     # Add local grib2 template
     if is_eccodes_post_2_23(args):
