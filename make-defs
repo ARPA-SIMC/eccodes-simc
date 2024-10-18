@@ -62,6 +62,15 @@ def is_eccodes_post_2_23(args):
     return False
 
 
+def has_eccodes_grib2_templates_subdir(args):
+    """
+    Check if eccodes has grib2/templates subdir
+    """
+    system_grib2 = Path("/") / args.datadir / "eccodes" / "definitions" / "grib2"
+    templates_subdir = system_grib2 / "templates"
+    return templates_subdir.exists() and templates_subdir.is_dir()
+
+
 def patch_applies(patch: str, dir: Path):
     """
     Check if this patch applies
@@ -111,6 +120,17 @@ def install_definitions(args):
     for fn in ("5.table", "grid_definition_90.def", "stepType.def"):
         shutil.copyfile(system_grib1 / fn, def_grib1_dir / fn)
     shutil.copyfile(system_grib2 / "section.3.def", def_grib2_dir / "section.3.def")
+
+    # Add templates subdir if needed
+    if has_eccodes_grib2_templates_subdir(args):
+        with open("template.3.32768.def.in") as fp:
+            template_file = fp.read().replace(
+                "grib2/template.",
+                "grib2/templates/template.",
+            )
+
+        with open("template.3.32768.def", "w") as fp:
+            fp.write(template_file)
 
     # Add local grib2 template
     if is_eccodes_post_2_23(args):
