@@ -68,7 +68,7 @@ def has_eccodes_grib2_templates_subdir(args):
     """
     system_grib2 = Path("/") / args.datadir / "eccodes" / "definitions" / "grib2"
     templates_subdir = system_grib2 / "templates"
-    return templates_subdir.exists() and templates_subdir.is_dir()
+    return templates_subdir.is_dir()
 
 
 def patch_applies(patch: str, dir: Path):
