@@ -19,6 +19,8 @@ if (datum == 0)
 	unsigned[3] falseNorthing : dump;
 }
 
+constant isGridded = true;
+
 unsigned[4] Ni : can_be_missing,dump;
 alias numberOfPointsAlongXDirection=Ni;
 alias Nx = Ni;
