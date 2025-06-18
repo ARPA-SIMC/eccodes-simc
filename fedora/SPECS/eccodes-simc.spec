@@ -3,7 +3,7 @@
 %{!?srcarchivename: %global srcarchivename %{name}-%{version}-%{releaseno}}
 
 Name:           eccodes-simc
-Version:        0.6
+Version:        0.7
 Release:        %{releaseno}
 Summary:        Custom grib definitions and samples used at ARPAE-SIMC
 License:        Apache License, Version 2.0
@@ -42,6 +42,10 @@ datadir=%{_datadir}
 %{_datadir}/%{name}/*
 
 %changelog
+* Wed Jun 18 2025 Daniele Branchini <dbranchini@arpae.it> - 0.7-1
+- Add templates subdir if needed (#12)
+- Add isGridded key (#14)
+
 * Tue May 30 2023 Daniele Branchini <dbranchini@arpae.it> - 0.6-1
 - Move UTM template in local sections if required (Re-fixed #8)
 
